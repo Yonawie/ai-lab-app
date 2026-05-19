@@ -1,0 +1,33 @@
+{
+  "name": "@ai-lab/desktop",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+  "dev": "vite",
+  "dev:web": "vite",
+  "build": "tsc && vite build",
+  "tauri:dev": "pnpm exec tauri dev",
+  "tauri:build": "pnpm exec tauri build",
+  "preview": "vite preview",
+  "typecheck": "tsc --noEmit"
+},
+  "dependencies": {
+    "@ai-lab/core": "workspace:*",
+    "@ai-lab/database": "workspace:*",
+    "@ai-lab/ui": "workspace:*",
+    "@tauri-apps/api": "^2.10.1",
+    "@tauri-apps/plugin-opener": "^2.5.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.6.2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.10.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.8.3",
+    "vite": "^7.3.1"
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "teacherEmail": "elena.petrova@school.ru",
+  "teacherName": "Elena Petrova",
+  "stats": [
+    {
+      "id": "students",
+      "title": "Всего учеников",
+      "value": "5",
+      "change": "+0",
+      "trend": "up",
+      "tone": "blue"
+    },
+    {
+      "id": "active",
+      "title": "Активны сегодня",
+      "value": "0",
+      "change": "+0",
+      "trend": "up",
+      "tone": "emerald"
+    },
+    {
+      "id": "progress",
+      "title": "Средний прогресс",
+      "value": "15%",
+      "change": "+100%",
+      "trend": "up",
+      "tone": "accent"
+    },
+    {
+      "id": "lessons",
+      "title": "Назначенных уроков",
+      "value": "3",
+      "change": "+0",
+      "trend": "up",
+      "tone": "amber"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "name": "Alex Student",
+      "avatar": "",
+      "initials": "AS",
+      "level": 12,
+      "progress": 50,
+      "status": "offline",
+      "lastActive": "5 ч назад",
+      "lessonsCompleted": 1
+    },
+    {
+      "id": 2,
+      "name": "Ivan S",
+      "avatar": "",
+      "initials": "IS",
+      "level": 8,
+      "progress": 0,
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "lessonsCompleted": 0
+    },
+    {
+      "id": 3,
+      "name": "Maria K",
+      "avatar": "",
+      "initials": "MK",
+      "level": 10,
+      "progress": 25,
+      "status": "offline",
+      "lastActive": "5 ч назад",
+      "lessonsCompleted": 0
+    },
+    {
+      "id": 4,
+      "name": "Pavel N",
+      "avatar": "",
+      "initials": "PN",
+      "level": 11,
+      "progress": 0,
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "lessonsCompleted": 0
+    },
+    {
+      "id": 5,
+      "name": "Sofia M",
+      "avatar": "",
+      "initials": "SM",
+      "level": 14,
+      "progress": 0,
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "lessonsCompleted": 0
+    }
+  ],
+  "insights": [
+    {
+      "id": 1,
+      "title": "Лучший урок",
+      "value": "Введение в нейросети",
+      "subtitle": "~30% в среднем по классу",
+      "trend": "up"
+    },
+    {
+      "id": 2,
+      "title": "Сложная тема",
+      "value": "Ваш первый чат-бот",
+      "subtitle": "~0% в среднем — нужно повторение",
+      "trend": "down"
+    },
+    {
+      "id": 3,
+      "title": "Пик активности",
+      "value": "09:00 – 11:00",
+      "subtitle": "По времени отправки ответов",
+      "trend": "up"
+    },
+    {
+      "id": 4,
+      "title": "Рост за неделю",
+      "value": "+3 ответов",
+      "subtitle": "Завершённые задания vs предыдущие 7 дней",
+      "trend": "up"
+    }
+  ],
+  "pendingTasks": [
+    {
+      "id": 1,
+      "type": "review",
+      "title": "Проверить 3 ответа",
+      "description": "Задания по уроку «Введение в нейросети» и др.",
+      "priority": "high",
+      "dueIn": "Сейчас"
+    },
+    {
+      "id": 2,
+      "type": "attention",
+      "title": "2 ученика нуждаются в помощи",
+      "description": "Неполный прогресс по «Ваш первый чат-бот»",
+      "priority": "high",
+      "dueIn": "Сейчас"
+    },
+    {
+      "id": 3,
+      "type": "task",
+      "title": "Обновить материалы урока",
+      "description": "Уточнить примеры: «Ваш первый чат-бот»",
+      "priority": "medium",
+      "dueIn": "Завтра"
+    },
+    {
+      "id": 4,
+      "type": "task",
+      "title": "Запланировать еженедельный разбор",
+      "description": "Сводка по прогрессу класса",
+      "priority": "low",
+      "dueIn": "через 3 дня"
+    }
+  ]
+}

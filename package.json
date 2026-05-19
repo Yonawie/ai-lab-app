@@ -1,0 +1,23 @@
+{
+  "name": "ai-lab-app",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "db:generate": "pnpm --filter @ai-lab/database db:generate",
+    "db:migrate": "pnpm --filter @ai-lab/database db:migrate",
+    "db:push": "pnpm --filter @ai-lab/database db:push",
+    "db:seed": "pnpm --filter @ai-lab/database db:seed",
+    "db:sync-student-ui": "pnpm --filter @ai-lab/database db:sync-student-ui",
+    "db:studio": "pnpm --filter @ai-lab/database db:studio",
+    "desktop:dev": "pnpm --filter @ai-lab/desktop dev",
+    "desktop:build": "pnpm --filter @ai-lab/desktop tauri:build"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  }
+}

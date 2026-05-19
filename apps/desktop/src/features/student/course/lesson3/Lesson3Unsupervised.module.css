@@ -1,0 +1,797 @@
+/* Lesson 3 — unsupervised / chaos & clusters (tokens align with L1–L2) */
+
+.l3Block {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.l3Narrative {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--course-fg);
+  opacity: 0.95;
+}
+
+.l3Cinematic {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.35rem;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--course-violet) 12%, white) 0%,
+    color-mix(in srgb, var(--course-accent) 10%, white) 100%
+  );
+  border: 1px solid var(--course-border);
+  min-height: 8.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  justify-content: center;
+  animation: l3FadeIn 0.45s ease-out;
+}
+
+@keyframes l3FadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.l3Overline {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--course-violet);
+}
+
+.l3Title {
+  margin: 0;
+  font-size: 1.22rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--course-fg);
+}
+
+.l3BtnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.btnPrimary {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--course-violet), var(--course-accent));
+  color: #fff;
+  transition: transform 0.12s ease;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnGhost {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  font-size: 0.84rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  color: var(--course-fg);
+  transition: border-color 0.15s ease;
+}
+
+.btnGhost:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--course-accent) 40%, var(--course-border));
+}
+
+.ruleCallout {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.04);
+  border-left: 3px solid var(--course-violet);
+}
+
+.demoCard {
+  border-radius: 0.65rem;
+  border: 1px solid var(--course-border);
+  padding: 0.75rem 0.85rem;
+  background: rgba(255, 255, 255, 0.55);
+  margin-bottom: 0.55rem;
+}
+
+.demoKind {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--course-muted);
+}
+
+.chaosRoom {
+  border-radius: 0.75rem;
+  border: 2px solid color-mix(in srgb, var(--course-violet) 32%, var(--course-border));
+  padding: 1rem 1.1rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    color-mix(in srgb, var(--course-violet) 6%, white) 100%
+  );
+}
+
+.chaosHud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--course-muted);
+}
+
+.hudPill {
+  padding: 0.25rem 0.55rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--course-border);
+}
+
+.hudAccent {
+  color: var(--course-violet);
+}
+
+.clusterGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+@media (max-width: 720px) {
+  .clusterGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.clusterZone {
+  min-height: 7.5rem;
+  border-radius: 0.65rem;
+  border: 2px dashed color-mix(in srgb, var(--course-border) 70%, var(--course-violet));
+  padding: 0.55rem 0.5rem;
+  background: rgba(255, 255, 255, 0.45);
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.clusterZoneActive {
+  border-color: color-mix(in srgb, var(--course-violet) 55%, var(--course-border));
+  background: color-mix(in srgb, var(--course-violet) 8%, white);
+}
+
+.clusterZone0 {
+  border-color: color-mix(in srgb, var(--course-green) 45%, var(--course-border));
+}
+
+.clusterZone1 {
+  border-color: color-mix(in srgb, var(--course-accent) 50%, var(--course-border));
+}
+
+.clusterZone2 {
+  border-color: color-mix(in srgb, var(--course-red) 35%, var(--course-border));
+}
+
+.clusterZoneTitle {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--course-muted);
+}
+
+.chaosCard {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.35rem;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  border-radius: 0.45rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  color: var(--course-fg);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.chaosCard:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.chaosCardSelected {
+  outline: 2px solid var(--course-violet);
+  outline-offset: 1px;
+}
+
+.pool {
+  border-radius: 0.55rem;
+  border: 1px solid var(--course-border);
+  padding: 0.6rem 0.65rem;
+  background: rgba(0, 0, 0, 0.03);
+  margin-bottom: 0.65rem;
+}
+
+.poolTitle {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--course-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.feedback {
+  margin-top: 0.65rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.035);
+}
+
+.feedbackOk {
+  border-left: 3px solid var(--course-green);
+}
+
+.feedbackBad {
+  border-left: 3px solid var(--course-red);
+}
+
+.insightCard {
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--course-border);
+  background: color-mix(in srgb, var(--course-green) 5%, white);
+}
+
+.insightTitle {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.labRuleRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.65rem 0;
+}
+
+.labRuleBtn {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.8);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--course-fg);
+}
+
+.labRuleBtnActive {
+  border-color: var(--course-violet);
+  background: color-mix(in srgb, var(--course-violet) 12%, white);
+}
+
+.labPreview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .labPreview {
+    grid-template-columns: 1fr;
+  }
+}
+
+.labCol {
+  border-radius: 0.5rem;
+  border: 1px dashed var(--course-border);
+  padding: 0.45rem;
+  min-height: 4rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.summaryHero {
+  margin-top: 0.65rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--course-violet) 16%, white),
+    color-mix(in srgb, var(--course-accent) 14%, white)
+  );
+  border: 1px solid var(--course-border);
+}
+
+.summaryTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.summaryList {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.finalCard {
+  border-radius: 0.65rem;
+  border: 1px solid var(--course-border);
+  padding: 0.85rem 0.95rem;
+  margin-bottom: 0.65rem;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.finalCardDone {
+  border-color: color-mix(in srgb, var(--course-green) 40%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 6%, white);
+}
+
+.finalTitle {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--course-muted);
+}
+
+.finalPickRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.pickBtn {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+  font-size: 0.76rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  color: var(--course-fg);
+  flex: 1;
+  min-width: 6.5rem;
+}
+
+.pickBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.hintErr {
+  margin: 0.45rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--course-red);
+}
+
+.hintOk {
+  margin: 0.45rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--course-green);
+}
+
+.completeHintWarn {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--course-muted);
+  max-width: 32rem;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.45rem;
+}
+
+.missionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.engineerPanel {
+  margin-top: 0.8rem;
+  padding: 0.9rem 0.95rem;
+  border-radius: 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--course-violet) 26%, var(--course-border));
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--course-violet) 8%, white) 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+}
+
+.engineerEyebrow {
+  margin: 0 0 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--course-violet) 55%, var(--course-muted));
+}
+
+.engineerTitle {
+  margin: 0 0 0.45rem;
+  font-size: 0.96rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.engineerLead {
+  margin: 0;
+  font-size: 0.83rem;
+  line-height: 1.48;
+  color: var(--course-fg);
+  opacity: 0.92;
+}
+
+.dataGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+}
+
+.dataCell {
+  padding: 0.5rem 0.55rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.82);
+  text-align: center;
+}
+
+.dataCellValue {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.dataCellLabel {
+  display: block;
+  margin-top: 0.14rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--course-muted);
+  line-height: 1.3;
+}
+
+.choiceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.choiceCard {
+  appearance: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+  text-align: left;
+  padding: 0.78rem 0.82rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--course-fg);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.choiceCardActive {
+  border-color: color-mix(in srgb, var(--course-violet) 45%, var(--course-border));
+  background: color-mix(in srgb, var(--course-violet) 8%, white);
+}
+
+.clusterSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.clusterSummaryCard {
+  padding: 0.78rem 0.84rem;
+  border-radius: 0.62rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.clusterSummaryTitle {
+  margin: 0 0 0.32rem;
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--course-muted);
+}
+
+.fieldLabel {
+  display: block;
+  margin: 0.8rem 0 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--course-muted);
+}
+
+.textarea {
+  width: 100%;
+  resize: vertical;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+  line-height: 1.5;
+  color: var(--course-fg);
+}
+
+.textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--course-violet) 24%, transparent);
+  border-color: color-mix(in srgb, var(--course-violet) 46%, var(--course-border));
+}
+
+.insightGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.8rem;
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.linkCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.3rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--course-violet) 35%, var(--course-border));
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--course-fg);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.linkCta:hover {
+  border-color: color-mix(in srgb, var(--course-violet) 55%, var(--course-border));
+}
+
+/* —— AI Engineer Lab (Lesson 3) —— */
+
+.l3EngineerEyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--course-violet) 55%, var(--course-muted));
+}
+
+.l3EngineerPanel {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--course-violet) 28%, var(--course-border));
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--course-violet) 7%, white) 0%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+}
+
+.l3EngineerTitle {
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.l3EngineerLead {
+  margin: 0 0 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--course-fg);
+  opacity: 0.92;
+}
+
+.l3DataGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: 0.45rem;
+}
+
+.l3DataCell {
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--course-border);
+  text-align: center;
+}
+
+.l3DataCellValue {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--course-fg);
+  line-height: 1.15;
+}
+
+.l3DataCellLabel {
+  display: block;
+  margin-top: 0.12rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--course-muted);
+  line-height: 1.25;
+}
+
+.l3QualityPanel {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.6rem;
+  border: 2px solid color-mix(in srgb, var(--course-accent) 35%, var(--course-border));
+  background: color-mix(in srgb, var(--course-accent) 6%, white);
+}
+
+.l3QualityList {
+  margin: 0.35rem 0 0;
+  padding-left: 1.05rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--course-fg);
+}
+
+.l3LabCompare {
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.55rem;
+  border: 1px dashed color-mix(in srgb, var(--course-violet) 40%, var(--course-border));
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.l3LabCompareTitle {
+  margin: 0 0 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.l3OutlierBlock {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--course-amber) 42%, var(--course-border));
+  background: color-mix(in srgb, var(--course-amber) 8%, white);
+}
+
+.l3LabResultCard {
+  margin-top: 0.9rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 0.65rem;
+  border: 2px solid color-mix(in srgb, var(--course-green) 38%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 8%, white);
+}
+
+.l3LabResultTitle {
+  margin: 0 0 0.45rem;
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.l3LabResultGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+}
+
+.l3LabResultCell {
+  padding: 0.45rem 0.5rem;
+  border-radius: 0.45rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.l3LabResultCell strong {
+  display: block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--course-muted);
+  margin-bottom: 0.2rem;
+}
+
+.aiPanelWeak {
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid color-mix(in srgb, var(--course-red) 22%, var(--course-border));
+  margin-top: 0.45rem;
+}
+
+.aiPanelWeakLabel {
+  margin: 0 0 0.2rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--course-red);
+}

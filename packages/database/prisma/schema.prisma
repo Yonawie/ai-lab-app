@@ -1,0 +1,400 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  student
+  teacher
+  admin
+}
+
+enum TaskType {
+  classification
+  ranking
+  policy_path
+  data_cleaning
+}
+
+enum CompanionPersonalityType {
+  explorer
+  mentor
+  strategist
+  inventor
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  role      Role
+  passwordHash String?
+  /// Optional display name (e.g. for teacher-created student records).
+  displayName String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teacherRoster   TeacherStudent[] @relation("TeacherStudentTeacher")
+  studentTeachers TeacherStudent[] @relation("TeacherStudentStudent")
+
+  studentProfile   StudentProfile?
+  taskAttempts     TaskAttempt[]
+  userAchievements UserAchievement[]
+  datasetExamples  DatasetExample[] @relation("StudentDatasetExamples")
+  aiCompanion      StudentAICompanion?
+  modelProfile     ModelProfile?
+  trainingRuns     TrainingRun[]
+  promptExperiments PromptExperiment[]
+  chatTrainingInteractions ChatTrainingInteraction[]
+  aiExamRuns         StudentAiExamRun[]
+  studentOllamaModelRefs StudentOllamaModelRef[]
+  studentTrainingExportRefs StudentTrainingExportRef[]
+  studentModelUsagePreferences StudentModelUsagePreference[]
+  studentArtifactLedger StudentArtifactLedger[]
+  studentCompareRuns StudentCompareRun[]
+  studentBenchmarkRuns StudentBenchmarkRun[]
+  studentPairwisePreferences StudentPairwisePreference[]
+  aiStudioProjectVersions StudentAiStudioProjectVersion[]
+}
+
+/// Teacher–student roster link (which students a teacher manages).
+model TeacherStudent {
+  id        String   @id @default(cuid())
+  teacherId String
+  studentId String
+  groupName String?
+  createdAt DateTime @default(now())
+
+  teacher User @relation("TeacherStudentTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  student User @relation("TeacherStudentStudent", fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, studentId])
+  @@index([teacherId])
+  @@index([studentId])
+}
+
+/// Student-owned AI companion; stats grow when lesson tasks are first completed.
+model StudentAICompanion {
+  id              String                   @id @default(cuid())
+  studentId       String                   @unique
+  student         User                     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  name            String
+  stage           Int                      @default(1)
+  personalityType CompanionPersonalityType
+  logic           Int                      @default(5)
+  creativity      Int                      @default(5)
+  empathy         Int                      @default(5)
+  focus           Int                      @default(5)
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
+}
+
+/// Game-style progress for users with role `student` (optional row for others).
+model StudentProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level  Int    @default(1)
+  xp     Int    @default(0)
+}
+
+model Lesson {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  tasks       Task[]
+  datasetExamples DatasetExample[]
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  /// Stored as JSON array of option labels (classification only).
+  taskType      TaskType @default(classification)
+  promptText    String?
+  optionsJson   Json?
+  correctAnswer String?
+
+  attempts        TaskAttempt[]
+  datasetExamples DatasetExample[]
+}
+
+model TaskAttempt {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId      String
+  task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  score       Int?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model DatasetExample {
+  id             String   @id @default(cuid())
+  studentId      String
+  student        User     @relation("StudentDatasetExamples", fields: [studentId], references: [id], onDelete: Cascade)
+  lessonId       String
+  lesson         Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  taskId         String
+  task           Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskType       TaskType
+  inputText      String
+  selectedAnswer String
+  correctAnswer  String
+  isCorrect      Boolean
+  createdAt      DateTime @default(now())
+
+  @@index([studentId, createdAt])
+  @@index([lessonId, taskType])
+  @@index([taskId, isCorrect])
+}
+
+/// Lightweight local profile for the student's currently trained model.
+model ModelProfile {
+  id            String   @id @default(cuid())
+  studentId     String   @unique
+  student       User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  modelType     String
+  datasetSize   Int      @default(0)
+  accuracy      Float    @default(0)
+  lastTrainedAt DateTime?
+  trainingRuns  TrainingRun[]
+}
+
+/// Immutable history record for each local training action.
+model TrainingRun {
+  id             String       @id @default(cuid())
+  studentId      String
+  student        User         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  modelProfileId String
+  modelProfile   ModelProfile @relation(fields: [modelProfileId], references: [id], onDelete: Cascade)
+  examplesUsed   Int
+  accuracyBefore Float
+  accuracyAfter  Float
+  createdAt      DateTime     @default(now())
+
+  @@index([studentId, createdAt])
+  @@index([modelProfileId, createdAt])
+}
+
+/// Guided prompt-improvement runs done by a student in Prompt Lab.
+model PromptExperiment {
+  id             String   @id @default(cuid())
+  studentId      String
+  student        User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  taskTitle      String
+  weakPrompt     String
+  weakOutput     String
+  improvedPrompt String
+  improvedOutput String
+  explanation    String
+  createdAt      DateTime @default(now())
+
+  @@index([studentId, createdAt])
+}
+
+/// One simulator turn in "Chat with AI" training flow.
+model ChatTrainingInteraction {
+  id                  String   @id @default(cuid())
+  studentId           String
+  student             User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentMessage      String
+  aiAnswer            String
+  answerQuality       Int
+  studentImprovement  String?
+  createdAt           DateTime @default(now())
+
+  @@index([studentId, createdAt])
+}
+
+/// One completed AI assessment lab (benchmark) run; fixed exam, not lesson tasks.
+model StudentAiExamRun {
+  id               String   @id @default(cuid())
+  studentId        String
+  student          User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  totalScore       Int
+  skillScoresJson  String
+  strengthsJson    String
+  weaknessesJson   String
+  recommendation   String
+  createdAt        DateTime @default(now())
+
+  @@index([studentId, createdAt])
+}
+
+/// Local model-version reference for the student's trained AI.
+model StudentOllamaModelRef {
+  id                  String   @id
+  studentId           String   @unique
+  student             User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentEmail        String
+  baseModel           String
+  adapterPath         String
+  ollamaModelAlias    String
+  modelfilePath       String
+  trainingSummaryPath String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([studentId])
+  @@index([ollamaModelAlias])
+}
+
+/// Frozen dataset snapshot prepared for a training run.
+model StudentTrainingExportRef {
+  id                   String   @id
+  studentId            String   @unique
+  student              User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentEmail         String
+  datasetJsonlPath     String
+  metadataJsonPath     String
+  datasetExampleRows   Int
+  promptExperimentRows Int
+  chatTrainingRows     Int
+  totalRows            Int
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@index([studentId])
+}
+
+/// Student preference for using the trained model in student-facing AI tools.
+model StudentModelUsagePreference {
+  id              String   @id
+  studentId       String   @unique
+  student         User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  useTrainedModel Boolean  @default(true)
+  updatedAt       DateTime @updatedAt
+
+  @@index([studentId])
+}
+
+/// Append-only record of important student results used by dashboard read models.
+model StudentArtifactLedger {
+  id            String   @id
+  studentId     String
+  student       User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentEmail  String
+  artifactType  String
+  label         String
+  detail        String   @default("")
+  createdAt     DateTime @default(now())
+
+  @@index([studentId])
+  @@index([artifactType])
+  @@index([createdAt])
+}
+
+/// Before/after check on one prompt.
+model StudentCompareRun {
+  id               String   @id
+  studentId        String
+  student          User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentEmail     String
+  prompt           String
+  baseModel        String
+  trainedModelName String?
+  trainedAvailable Boolean  @default(false)
+  baseOutput       String
+  trainedOutput    String?
+  indicatorsJson   String   @default("[]")
+  explanation      String   @default("")
+  categoryTag      String?
+  createdAt        DateTime @default(now())
+
+  @@index([studentId])
+  @@index([createdAt])
+}
+
+/// Arena or hidden-task check across a repeatable task.
+model StudentBenchmarkRun {
+  id                   String   @id
+  studentId            String
+  student              User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentEmail         String
+  mode                 String
+  benchmarkMissionId   String
+  benchmarkTitle       String
+  benchmarkCategory    String
+  prompt               String
+  primaryModelName     String
+  secondaryModelName   String?
+  primaryOutput        String
+  secondaryOutput      String?
+  resultWinner         String
+  indicatorsJson       String   @default("[]")
+  explanation          String   @default("")
+  opponentStudentEmail String?
+  createdAt            DateTime @default(now())
+
+  @@index([studentId])
+  @@index([createdAt])
+}
+
+/// Pairwise student preference signal produced after comparing two answers.
+model StudentPairwisePreference {
+  id             String   @id
+  studentId      String
+  student        User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentEmail   String
+  prompt         String
+  leftModelName  String
+  rightModelName String
+  leftOutput     String
+  rightOutput    String
+  chosenWinner   String
+  rationale      String   @default("")
+  sourceSurface  String   @default("compare")
+  compareRunId   String?
+  createdAt      DateTime @default(now())
+
+  @@index([studentId])
+  @@index([createdAt])
+}
+
+/// Saved project version produced in AI Studio.
+model StudentAiStudioProjectVersion {
+  id                String   @id
+  projectId         String
+  studentId         String
+  student           User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentEmail      String
+  projectType       String
+  goal              String
+  constraintsText   String   @default("")
+  generationRequest String   @default("")
+  htmlCode          String
+  cssCode           String   @default("")
+  jsCode            String   @default("")
+  modelName         String?
+  createdAt         DateTime @default(now())
+
+  @@index([studentId])
+  @@index([projectId])
+  @@index([createdAt])
+}
+
+model Achievement {
+  id               String            @id @default(cuid())
+  title            String
+  description      String
+  userAchievements UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  earnedAt      DateTime    @default(now())
+
+  @@unique([userId, achievementId])
+}

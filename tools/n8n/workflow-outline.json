@@ -1,0 +1,50 @@
+{
+  "name": "AI Lab Project Assistant",
+  "purpose": "n8n workflow outline for managing the AI Lab desktop project",
+  "nodes": [
+    {
+      "name": "When chat message received",
+      "type": "Chat Trigger",
+      "role": "Receives natural-language project requests from Dasha"
+    },
+    {
+      "name": "OpenRouter Chat Model",
+      "type": "Chat Model",
+      "role": "Reasoning model connected to AI Agent"
+    },
+    {
+      "name": "ai_lab_runner",
+      "type": "HTTP Request Tool",
+      "method": "POST",
+      "url": "http://127.0.0.1:8787/run",
+      "headers": {
+        "Authorization": "Bearer <AI_LAB_RUNNER_TOKEN>"
+      },
+      "jsonBody": {
+        "task": "{{ $fromAI('task', 'Validation task to run: health, rust-check, desktop-typecheck, desktop-build, all-checks') }}"
+      },
+      "allowedTasks": [
+        "health",
+        "rust-check",
+        "desktop-typecheck",
+        "desktop-build",
+        "all-checks"
+      ]
+    },
+    {
+      "name": "AI Agent",
+      "type": "AI Agent",
+      "role": "Uses OpenRouter model and ai_lab_runner tool; follows AI_AGENT_SYSTEM_PROMPT_RU.md"
+    }
+  ],
+  "connections": [
+    "When chat message received -> AI Agent",
+    "OpenRouter Chat Model -> AI Agent / Chat Model",
+    "ai_lab_runner -> AI Agent / Tool"
+  ],
+  "recommendedFirstTests": [
+    "Проверь связь с проектом.",
+    "Проверь TypeScript.",
+    "Проверь проект полностью."
+  ]
+}

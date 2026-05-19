@@ -1,0 +1,884 @@
+/* Lesson 2 — supervised / training room (same tokens as Lesson 1) */
+
+.l2Block {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.l2Narrative {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--course-fg);
+  opacity: 0.95;
+}
+
+.l2Cinematic {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.35rem;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--course-green) 10%, white) 0%,
+    color-mix(in srgb, var(--course-accent) 10%, white) 100%
+  );
+  border: 1px solid var(--course-border);
+  min-height: 9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  justify-content: center;
+  animation: l2FadeIn 0.45s ease-out;
+}
+
+@keyframes l2FadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.l2Overline {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--course-accent);
+}
+
+.l2Title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--course-fg);
+}
+
+.l2BtnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.btnPrimary {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--course-violet), var(--course-accent));
+  color: #fff;
+  transition: transform 0.12s ease;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnGhost {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  font-size: 0.84rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  color: var(--course-fg);
+  transition: border-color 0.15s ease;
+}
+
+.btnGhost:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--course-accent) 40%, var(--course-border));
+}
+
+.btnClass {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.75);
+  font-weight: 800;
+  font-size: 0.84rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.5rem;
+  flex: 1;
+  min-width: 8rem;
+}
+
+.btnClassActive {
+  border-color: var(--course-accent);
+  background: var(--course-accent-soft);
+}
+
+.ruleCallout {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.04);
+  border-left: 3px solid var(--course-accent);
+}
+
+.demoCard {
+  border-radius: 0.65rem;
+  border: 1px solid var(--course-border);
+  padding: 0.75rem 0.85rem;
+  background: rgba(255, 255, 255, 0.55);
+  margin-bottom: 0.55rem;
+}
+
+.demoKind {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--course-muted);
+}
+
+.trainingRoom {
+  border-radius: 0.75rem;
+  border: 2px solid color-mix(in srgb, var(--course-accent) 35%, var(--course-border));
+  padding: 1rem 1.1rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    color-mix(in srgb, var(--course-accent) 5%, white) 100%
+  );
+}
+
+.trainingHud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--course-muted);
+}
+
+.hudPill {
+  padding: 0.25rem 0.55rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--course-border);
+}
+
+.hudAccent {
+  color: var(--course-accent);
+}
+
+.sampleText {
+  margin: 0 0 0.75rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--course-fg);
+}
+
+.aiPanel {
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid color-mix(in srgb, var(--course-violet) 25%, var(--course-border));
+  margin-bottom: 0.75rem;
+}
+
+.aiPanelLabel {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--course-violet);
+}
+
+.aiPanelGuess {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.feedback {
+  margin-top: 0.65rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.035);
+}
+
+.feedbackOk {
+  border-left: 3px solid var(--course-green);
+}
+
+.feedbackBad {
+  border-left: 3px solid var(--course-red);
+}
+
+.spotlightCard {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px dashed color-mix(in srgb, var(--course-green) 40%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 6%, white);
+}
+
+.spotlightTitle {
+  margin: 0 0 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.labCard {
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  padding: 0.75rem 0.85rem;
+  margin-bottom: 0.55rem;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.labCardOk {
+  border-color: color-mix(in srgb, var(--course-green) 45%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 5%, white);
+}
+
+.suggestedTag {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.summaryHero {
+  margin-top: 0.65rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--course-accent) 18%, white),
+    color-mix(in srgb, var(--course-violet) 14%, white)
+  );
+  border: 1px solid var(--course-border);
+}
+
+.summaryTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.summaryList {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.finalCard {
+  border-radius: 0.65rem;
+  border: 1px solid var(--course-border);
+  padding: 0.85rem 0.95rem;
+  margin-bottom: 0.65rem;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.finalCardDone {
+  border-color: color-mix(in srgb, var(--course-green) 40%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 6%, white);
+}
+
+.finalTitle {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--course-muted);
+}
+
+.hintErr {
+  margin: 0.45rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--course-red);
+}
+
+.completeHintWarn {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--course-muted);
+  max-width: 32rem;
+}
+
+.progressTrack {
+  margin-top: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--course-violet), var(--course-accent));
+  transition: width 0.35s ease;
+}
+
+/* —— AI Engineer Lab (Lesson 2) —— */
+
+.engineerEyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--course-violet) 55%, var(--course-muted));
+}
+
+.engineerPanel {
+  margin-top: 0.85rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--course-violet) 28%, var(--course-border));
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--course-violet) 7%, white) 0%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+}
+
+.engineerTitle {
+  margin: 0 0 0.45rem;
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.engineerLead {
+  margin: 0 0 0.65rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--course-fg);
+  opacity: 0.9;
+}
+
+.dataGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.5rem;
+}
+
+.dataCell {
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--course-border);
+  text-align: center;
+}
+
+.dataCellValue {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--course-fg);
+  line-height: 1.2;
+}
+
+.dataCellLabel {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--course-muted);
+  line-height: 1.25;
+}
+
+.splitRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.65rem;
+  align-items: stretch;
+}
+
+.splitCard {
+  flex: 1;
+  min-width: 8.5rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.splitCardTrain {
+  border-color: color-mix(in srgb, var(--course-accent) 35%, var(--course-border));
+}
+
+.splitCardVal {
+  border-color: color-mix(in srgb, var(--course-amber) 40%, var(--course-border));
+}
+
+.splitPct {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+@media (max-width: 560px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.metricTile {
+  padding: 0.45rem 0.5rem;
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.04);
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.metricName {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--course-muted);
+}
+
+.metricValue {
+  margin-top: 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.cmWrap {
+  margin-top: 0.65rem;
+  overflow: auto;
+}
+
+.cmTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  min-width: 14rem;
+}
+
+.cmTable th,
+.cmTable td {
+  border: 1px solid var(--course-border);
+  padding: 0.35rem 0.45rem;
+  text-align: center;
+}
+
+.cmTable th {
+  background: rgba(0, 0, 0, 0.04);
+  font-weight: 800;
+}
+
+.cmCorner {
+  background: rgba(0, 0, 0, 0.03);
+  font-weight: 800;
+}
+
+.cmCellStrong {
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.errorCard {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--course-red) 28%, var(--course-border));
+  background: color-mix(in srgb, var(--course-red) 6%, white);
+}
+
+.errorRow {
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--course-red) 15%, var(--course-border));
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.errorRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.retrainRow {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+
+.retrainBtn {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 800;
+  font-size: 0.84rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(15, 118, 110, 0.25);
+}
+
+.retrainBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.retrainCompareGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+  align-items: stretch;
+}
+
+.retrainCompareColumn {
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.6rem;
+  border: 2px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.retrainCompareColumnBefore {
+  border-color: color-mix(in srgb, var(--course-amber) 55%, var(--course-border));
+  background: color-mix(in srgb, var(--course-amber) 6%, white);
+}
+
+.retrainCompareColumnAfter {
+  border-color: color-mix(in srgb, #14b8a6 45%, var(--course-border));
+  background: color-mix(in srgb, #14b8a6 7%, white);
+}
+
+.retrainCompareColumn .engineerEyebrow {
+  margin-top: 0;
+}
+
+.retrainInsight {
+  margin-top: 1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--course-violet) 35%, var(--course-border));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--course-violet) 10%, white),
+    rgba(255, 255, 255, 0.95)
+  );
+}
+
+.retrainInsightTitle {
+  margin: 0 0 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.retrainInsightBody {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--course-fg);
+  opacity: 0.95;
+}
+
+.summaryWorkflowLead {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--course-green) 40%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 7%, white);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--course-fg);
+}
+
+.summaryWorkflowPending {
+  margin: 0 0 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px dashed color-mix(in srgb, var(--course-amber) 50%, var(--course-border));
+  background: color-mix(in srgb, var(--course-amber) 6%, white);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  font-weight: 600;
+  color: var(--course-fg);
+}
+
+.compareMetrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.compareBox {
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.compareBox strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--course-muted);
+}
+
+.challengeRetrainHint {
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--course-amber) 45%, var(--course-border));
+  background: color-mix(in srgb, var(--course-amber) 8%, white);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  font-weight: 600;
+  color: var(--course-fg);
+}
+
+.evalBlock {
+  margin-top: 0.85rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 0.65rem;
+  border: 2px solid color-mix(in srgb, var(--course-green) 35%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 8%, white);
+}
+
+.demoMetricHint {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--course-muted);
+  font-weight: 600;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.4rem;
+}
+
+.missionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.sectionMission {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0 0 0.8rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.55rem;
+  background: color-mix(in srgb, var(--course-accent) 7%, white);
+  border: 1px solid color-mix(in srgb, var(--course-accent) 22%, var(--course-border));
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.starterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+
+.starterCard {
+  appearance: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: left;
+  padding: 0.75rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--course-fg);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.starterCardActive {
+  border-color: color-mix(in srgb, var(--course-accent) 45%, var(--course-border));
+  background: color-mix(in srgb, var(--course-accent) 7%, white);
+}
+
+.fieldLabel {
+  display: block;
+  margin: 0.8rem 0 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--course-muted);
+}
+
+.textarea {
+  width: 100%;
+  resize: vertical;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.88);
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+  line-height: 1.5;
+  color: var(--course-fg);
+}
+
+.textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--course-accent) 26%, transparent);
+  border-color: color-mix(in srgb, var(--course-accent) 45%, var(--course-border));
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.resultCard {
+  padding: 0.8rem 0.9rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.ratingRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+}
+
+.ratingBtn {
+  appearance: none;
+  cursor: pointer;
+  min-width: 2.35rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.88);
+  padding: 0.45rem 0.7rem;
+  font-weight: 800;
+  color: var(--course-fg);
+}
+
+.ratingBtnActive {
+  border-color: color-mix(in srgb, var(--course-violet) 45%, var(--course-border));
+  background: color-mix(in srgb, var(--course-violet) 10%, white);
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.historyCard {
+  padding: 0.7rem 0.75rem;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid color-mix(in srgb, var(--course-border) 85%, white);
+}
+
+.stageList {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+
+.stageItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  padding: 0.75rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.stageItemDone {
+  border-color: color-mix(in srgb, var(--course-green) 42%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 6%, white);
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.linkCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.3rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--course-accent) 35%, var(--course-border));
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--course-fg);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.linkCta:hover {
+  border-color: color-mix(in srgb, var(--course-accent) 55%, var(--course-border));
+}

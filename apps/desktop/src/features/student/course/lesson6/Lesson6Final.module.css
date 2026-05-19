@@ -1,0 +1,405 @@
+/* Lesson 6 — final mission: emotional, slightly more cinematic */
+
+.l6Block {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.l6Narrative {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--course-fg);
+  opacity: 0.95;
+}
+
+.l6Cinematic {
+  position: relative;
+  border-radius: 0.85rem;
+  padding: 1.35rem 1.45rem;
+  background: linear-gradient(
+    145deg,
+    #0f172a 0%,
+    color-mix(in srgb, var(--course-violet) 28%, #0f172a) 50%,
+    #111827 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--course-accent) 35%, #334155);
+  color: #e2e8f0;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.35);
+  animation: l6Fade 0.55s ease-out;
+}
+
+@keyframes l6Fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.l6Overline {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+.l6Title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.l6Cinematic .l6Narrative {
+  color: rgba(248, 250, 252, 0.92);
+  opacity: 1;
+}
+
+.l6BtnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.btnPrimary {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 0.55rem;
+  background: linear-gradient(135deg, #38bdf8, var(--course-violet));
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  transition: transform 0.12s ease;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btnGhost {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+  font-size: 0.84rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  color: #e2e8f0;
+}
+
+.ruleCallout {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.04);
+  border-left: 3px solid var(--course-accent);
+}
+
+.doneBanner {
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.55rem;
+  background: color-mix(in srgb, var(--course-green) 12%, white);
+  border: 1px solid color-mix(in srgb, var(--course-green) 45%, var(--course-border));
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.todoBanner {
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.55rem;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.linkCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: var(--course-violet);
+  text-decoration: none;
+}
+
+.linkCta:hover {
+  text-decoration: underline;
+}
+
+.bulletList {
+  margin: 0.5rem 0 0;
+  padding-left: 1.15rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.finaleShell {
+  margin-top: 0.75rem;
+  border-radius: 1rem;
+  padding: 1.35rem 1.5rem 1.5rem;
+  background: radial-gradient(
+    ellipse 120% 80% at 50% -20%,
+    color-mix(in srgb, var(--course-violet) 35%, transparent),
+    transparent 55%
+  ),
+    linear-gradient(165deg, #0f172a 0%, #1e1b4b 45%, #0f172a 100%);
+  border: 2px solid color-mix(in srgb, var(--course-accent) 45%, #334155);
+  color: #f1f5f9;
+  box-shadow:
+    0 0 60px color-mix(in srgb, var(--course-violet) 22%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.finaleEyebrow {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a5b4fc;
+}
+
+.finaleH2 {
+  margin: 0 0 0.65rem;
+  font-size: 1.65rem;
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.finaleLead {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.95);
+  max-width: 40rem;
+}
+
+.finaleGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 720px) {
+  .finaleGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.finaleCard {
+  border-radius: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(129, 140, 248, 0.35);
+}
+
+.finaleCardLabel {
+  margin: 0 0 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.finaleCardValue {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #f8fafc;
+}
+
+.finaleActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.finaleBtn {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.finaleBtn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(186, 230, 253, 0.55);
+}
+
+.finaleBtnAccent {
+  border: none;
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  color: #fff;
+}
+
+.completeHintWarn {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--course-muted);
+  max-width: 36rem;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.55rem;
+}
+
+.missionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.6rem;
+}
+
+.statusCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding: 0.75rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.statusValue {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--course-fg);
+  line-height: 1.15;
+}
+
+.statusLabel {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--course-muted);
+  line-height: 1.35;
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.pipelinePanel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.65rem;
+}
+
+.pipelineStep {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.capstonePanel {
+  margin-top: 0.75rem;
+  border-radius: 0.9rem;
+  padding: 1rem 1.05rem;
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--course-violet) 9%, white) 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--course-violet) 28%, var(--course-border));
+}
+
+.capstoneEyebrow {
+  margin: 0 0 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--course-violet) 55%, var(--course-muted));
+}
+
+.capstoneTitle {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--course-fg);
+}
+
+.checklist {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.checkItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--course-border);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.checkItemDone {
+  border-color: color-mix(in srgb, var(--course-green) 42%, var(--course-border));
+  background: color-mix(in srgb, var(--course-green) 6%, white);
+}
+
+.checkMeta {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--course-muted);
+}

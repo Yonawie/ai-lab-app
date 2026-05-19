@@ -1,0 +1,211 @@
+.page {
+  --rs-bg: #fafafa;
+  --rs-fg: #0a0a0a;
+  --rs-muted: #737373;
+  --rs-card: rgba(255, 255, 255, 0.5);
+  --rs-border: rgba(0, 0, 0, 0.1);
+  --rs-border-hover: color-mix(in srgb, var(--rs-accent) 60%, transparent);
+  --rs-secondary: rgba(245, 245, 245, 0.8);
+  --rs-accent: #0ea5e9;
+  --rs-accent-soft: rgba(14, 165, 233, 0.2);
+  --rs-primary: #0c4a6e;
+  --rs-primary-fg: #fff;
+  --rs-icon: color-mix(in srgb, var(--rs-fg) 80%, transparent);
+  --rs-btn-hover-bg: var(--rs-accent);
+  --rs-btn-hover-fg: #0c4a6e;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 3rem;
+  background: var(--rs-bg);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 72rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  margin: 0 0 0.75rem;
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--rs-fg);
+}
+
+.subtitle {
+  margin: 0 auto;
+  max-width: 36rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--rs-muted);
+  text-wrap: balance;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.75rem;
+  border: 1px solid var(--rs-border);
+  background: var(--rs-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--rs-border-hover);
+  box-shadow:
+    0 25px 50px -12px rgba(15, 23, 42, 0.15),
+    0 0 40px -12px color-mix(in srgb, var(--rs-accent) 10%, transparent);
+  transform: translateY(-4px);
+}
+
+.card:focus-within {
+  border-color: var(--rs-border-hover);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--rs-accent) 25%, transparent),
+    0 25px 50px -12px rgba(15, 23, 42, 0.12);
+}
+
+.cardHeader {
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.iconBox {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background: var(--rs-secondary);
+  color: var(--rs-icon);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card:hover .iconBox {
+  background: var(--rs-accent-soft);
+  color: var(--rs-accent);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--rs-fg);
+}
+
+.cardContent {
+  padding: 0 1.5rem 1.5rem;
+  flex: 1;
+}
+
+.cardDescription {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--rs-muted);
+}
+
+.cardFooter {
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+.continueBtn {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--rs-primary-fg);
+  background: var(--rs-primary);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.continueBtn:hover {
+  background: var(--rs-btn-hover-bg);
+  color: var(--rs-btn-hover-fg);
+}
+
+.continueBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--rs-accent) 35%, transparent);
+}
+
+.footnote {
+  margin: 2.5rem 0 0;
+  font-size: 0.875rem;
+  color: var(--rs-muted);
+  text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .page {
+    --rs-bg: #0a0a0a;
+    --rs-fg: #fafafa;
+    --rs-muted: #a3a3a3;
+    --rs-card: rgba(23, 23, 23, 0.5);
+    --rs-border: rgba(255, 255, 255, 0.1);
+    --rs-secondary: rgba(38, 38, 38, 0.8);
+    --rs-accent-soft: rgba(56, 189, 248, 0.15);
+    --rs-primary: #0ea5e9;
+    --rs-primary-fg: #0c4a6e;
+    --rs-icon: color-mix(in srgb, var(--rs-fg) 80%, transparent);
+    --rs-btn-hover-bg: #38bdf8;
+    --rs-btn-hover-fg: #0c4a6e;
+  }
+
+  .card:hover {
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.45),
+      0 0 40px -12px color-mix(in srgb, var(--rs-accent) 15%, transparent);
+  }
+
+  .continueBtn {
+    color: #f0f9ff;
+  }
+
+  .continueBtn:hover {
+    color: #0c4a6e;
+  }
+}

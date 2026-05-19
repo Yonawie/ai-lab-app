@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "generatedAt": "2026-04-08T06:10:15.248Z",
+  "stats": [
+    {
+      "statKey": "totalUsers",
+      "title": "Всего пользователей",
+      "value": "8",
+      "change": "+8",
+      "changeLabel": "за месяц",
+      "tone": "blue"
+    },
+    {
+      "statKey": "activeSessions",
+      "title": "Активные сессии",
+      "value": "7",
+      "change": "+100%",
+      "changeLabel": "к прошлому часу",
+      "tone": "emerald"
+    },
+    {
+      "statKey": "systemHealth",
+      "title": "Состояние системы",
+      "value": "98.2%",
+      "change": "Отлично",
+      "changeLabel": "аптайм",
+      "tone": "teal"
+    },
+    {
+      "statKey": "aiModels",
+      "title": "Развёрнуто моделей ИИ",
+      "value": "3",
+      "change": "3 активны",
+      "changeLabel": "в обучении",
+      "tone": "amber"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@school.ru",
+      "role": "Admin",
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "sessions": 0
+    },
+    {
+      "id": 2,
+      "name": "Elena Petrova",
+      "email": "elena.petrova@school.ru",
+      "role": "Teacher",
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "sessions": 0
+    },
+    {
+      "id": 3,
+      "name": "Dmitry Ivanov",
+      "email": "dmitry.ivanov@school.ru",
+      "role": "Teacher",
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "sessions": 0
+    },
+    {
+      "id": 4,
+      "name": "Alex Student",
+      "email": "alex.student@school.ru",
+      "role": "Student",
+      "status": "idle",
+      "lastActive": "6 ч назад",
+      "sessions": 2
+    },
+    {
+      "id": 5,
+      "name": "Maria K",
+      "email": "maria.k@school.ru",
+      "role": "Student",
+      "status": "idle",
+      "lastActive": "6 ч назад",
+      "sessions": 1
+    },
+    {
+      "id": 6,
+      "name": "Ivan S",
+      "email": "ivan.s@school.ru",
+      "role": "Student",
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "sessions": 0
+    },
+    {
+      "id": 7,
+      "name": "Sofia M",
+      "email": "sofia.m@school.ru",
+      "role": "Student",
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "sessions": 0
+    },
+    {
+      "id": 8,
+      "name": "Pavel N",
+      "email": "pavel.n@school.ru",
+      "role": "Student",
+      "status": "offline",
+      "lastActive": "Нет активности",
+      "sessions": 0
+    }
+  ],
+  "systemMetrics": [
+    {
+      "name": "Загрузка CPU",
+      "value": 33,
+      "status": "normal"
+    },
+    {
+      "name": "Память",
+      "value": 72,
+      "status": "normal"
+    },
+    {
+      "name": "Хранилище",
+      "value": 64,
+      "status": "normal"
+    },
+    {
+      "name": "Сеть",
+      "value": 21,
+      "status": "normal"
+    }
+  ],
+  "statusFooter": {
+    "servicesOk": "12/12",
+    "uptimePct": "99.98%"
+  },
+  "recentActivity": [
+    {
+      "id": 1,
+      "action": "Новый пользователь",
+      "details": "Alex Student (alex.student@school.ru) — ученик",
+      "time": "6 часа назад",
+      "type": "user"
+    },
+    {
+      "id": 2,
+      "action": "Активность платформы",
+      "details": "Завершённых заданий в базе: 3; уроков: 3",
+      "time": "15 минуты назад",
+      "type": "system"
+    },
+    {
+      "id": 3,
+      "action": "Резервное копирование",
+      "details": "Снимок данных (31,4 МБ)",
+      "time": "50 минуты назад",
+      "type": "maintenance"
+    },
+    {
+      "id": 4,
+      "action": "Проверка безопасности",
+      "details": "Схема данных и связи пользователей в норме",
+      "time": "2 часа назад",
+      "type": "security"
+    },
+    {
+      "id": 5,
+      "action": "Каталог контента",
+      "details": "Уроков: 3; достижений: 3",
+      "time": "3 часа назад",
+      "type": "config"
+    }
+  ]
+}
