@@ -1,7 +1,9 @@
 import type { ComponentType, FormEvent, SVGProps } from "react";
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { isTauri } from "@tauri-apps/api/core";
 import { useAuth } from "@/shared/auth-context";
+import { routes } from "@/shared/routes";
 import {
   createStudentForTeacher,
   listStudentsForTeacher,
@@ -560,9 +562,14 @@ export function TeacherDashboardPage() {
               Следите за прогрессом учеников и управляйте уроками
             </p>
           </div>
-          <button type="button" className={styles.btnPrimary}>
-            Создать урок
-          </button>
+          <div className={styles.topActions}>
+            <Link to={routes.teacherPurchaseSurvey} className={styles.btnGhost}>
+              Лист закупок
+            </Link>
+            <button type="button" className={styles.btnPrimary}>
+              Создать урок
+            </button>
+          </div>
         </div>
 
         <TeacherMyStudentsRoster />

@@ -22,6 +22,7 @@ export const routes = {
   studentAiGrowth: "/student/my-ai",
   studentCourse: "/student/course",
   teacher: "/teacher",
+  teacherPurchaseSurvey: "/teacher/purchase-survey",
   admin: "/admin",
 } as const;
 

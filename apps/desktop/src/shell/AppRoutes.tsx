@@ -18,6 +18,7 @@ import { StudentTrainPage } from "@/features/student/StudentTrainPage";
 import { StudentEvaluatePage } from "@/features/student/StudentEvaluatePage";
 import { StudentBuildPage } from "@/features/student/StudentBuildPage";
 import { TeacherDashboardPage } from "@/features/teacher/TeacherDashboardPage";
+import { TeacherPurchaseSurveyPage } from "@/features/teacher/purchase-survey/TeacherPurchaseSurveyPage";
 import { useAuth, type UserRole } from "@/shared/auth-context";
 import { homeRouteForRole } from "@/shared/auth-routes";
 import { routes } from "@/shared/routes";
@@ -83,6 +84,10 @@ export function AppRoutes() {
         </Route>
         <Route element={<RequireRole roles={["teacher"]} />}>
           <Route path={routes.teacher} element={<TeacherDashboardPage />} />
+          <Route
+            path={routes.teacherPurchaseSurvey}
+            element={<TeacherPurchaseSurveyPage />}
+          />
         </Route>
         <Route element={<RequireRole roles={["admin"]} />}>
           <Route path={routes.admin} element={<AdminDashboardPage />} />

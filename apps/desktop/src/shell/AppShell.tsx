@@ -14,7 +14,10 @@ export function AppShell() {
       return [{ to: routes.studentAiGrowth, label: "Ученик" }] as const;
     }
     if (userRole === "teacher") {
-      return [{ to: routes.teacher, label: "Учитель" }] as const;
+      return [
+        { to: routes.teacher, label: "Учитель" },
+        { to: routes.teacherPurchaseSurvey, label: "Закупки" },
+      ] as const;
     }
     if (userRole === "admin") {
       return [{ to: routes.admin, label: "Администратор" }] as const;
@@ -45,7 +48,7 @@ export function AppShell() {
               className={({ isActive }) =>
                 isActive ? `${styles.link} ${styles.linkActive}` : styles.link
               }
-              end={false}
+              end={to === routes.teacher || to === routes.admin}
             >
               {label}
             </NavLink>
